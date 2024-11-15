@@ -9,3 +9,13 @@ export const fetchDogs = async (breed) => {
     return [];
   }
 };
+
+export const fetchAllBreeds = async () => {
+  try {
+    const response = await axios.get('https://dog.ceo/api/breeds/list/all');
+    return Object.keys(response.data.message); 
+  } catch (error) {
+    console.error("Error fetching breeds list:", error);
+    return [];
+  }
+};

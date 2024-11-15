@@ -1,27 +1,44 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { TextField, Button } from '@mui/material';
+import { Button, TextField, Grid, Typography } from '@mui/material';
+import { useDogContext } from '../context/DogContext';
 
-const SearchForm = ({ onSearch }) => {
+const SearchForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const { fetchImages } = useDogContext(); 
 
-  const onSubmit = (data) => {
-    onSearch(data.breed);
+  const onSubmit = async (data) => {
+    fetchImages(data.breed); 
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-      <TextField
-        label="Enter dog breed"
-        variant="outlined"
-        {...register('breed', { required: 'Breed is required' })}
-        error={!!errors.breed}
-        helperText={errors.breed ? errors.breed.message : ''}
-      />
-      <Button type="submit" variant="contained" color="primary">
-        Search
-      </Button>
-    </form>
+    <Grid container direction="column" spacing={2} style={{ width: '100%', maxWidth: '400px', margin: 'auto' }}>
+      <Grid item>
+        <Typography variant="h6">Search for Dog Breed</Typography>
+      </Grid>
+      
+      <Grid item>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+            label="Breed"
+            variant="outlined"
+            fullWidth
+            {...register('breed', { required: 'Breed is required' })}
+            error={!!errors.breed}
+            helperText={errors.breed ? errors.breed.message : ''}
+          />
+          <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: '1rem' }}>
+            Search
+          </Button>
+        </form>
+      </Grid>
+
+      {errors.breed && (
+        <Grid item>
+          <Typography color="error">{errors.breed.message}</Typography>
+        </Grid>
+      )}
+    </Grid>
   );
 };
 

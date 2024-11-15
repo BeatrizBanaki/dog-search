@@ -1,15 +1,22 @@
 import React from 'react';
-import DogCard from './DogCard';
-import { Grid } from '@mui/material';
+import { Grid, Card, CardMedia, Typography } from '@mui/material';
+import { useDogContext } from '../context/DogContext';
 
-const DogList = ({ images }) => (
-  <Grid container spacing={2}>
-    {images.map((image, index) => (
-      <Grid item key={index} xs={12} sm={6} md={4}>
-        <DogCard image={image} />
-      </Grid>
-    ))}
-  </Grid>
-);
+const DogList = () => {
+  const { images } = useDogContext(); 
+
+  return (
+    <Grid container spacing={2} justifyContent="center">
+      {images.map((image, index) => (
+        <Grid item key={index}>
+          <Card style={{ width: 200 }}>
+            <CardMedia component="img" height="140" image={image} alt="Dog" />
+            <Typography variant="caption" align="center">Dog #{index + 1}</Typography>
+          </Card>
+        </Grid>
+      ))}
+    </Grid>
+  );
+};
 
 export default DogList;

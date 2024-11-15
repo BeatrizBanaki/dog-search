@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { Container, Typography } from '@mui/material';
+import SearchForm from './components/SearchForm';
+import DogList from './components/DogList';
+import { fetchDogs } from './api';
 
-function App() {
+const App = () => {
+  const [images, setImages] = useState([]);
+
+  const handleSearch = async (breed) => {
+    const result = await fetchDogs(breed);
+    setImages(result);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container style={{ padding: '2rem' }}>
+      <Typography variant="h4" gutterBottom>
+        Dog Breed Search
+      </Typography>
+      <SearchForm onSearch={handleSearch} />
+      <DogList images={images} />
+    </Container>
   );
-}
+};
 
 export default App;

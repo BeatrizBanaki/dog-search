@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button, TextField, Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography, Autocomplete, TextField } from '@mui/material';
 import { useDogContext } from '../context/DogContext';
+import { fetchAllBreeds } from '../api';
 
 const SearchForm = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const { fetchImages } = useDogContext(); 
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const { fetchImages } = useDogContext(); // Função de busca no contexto
+  const [breeds, setBreeds] = useState([]); // Lista de raças
+
+  useEffect(() => {
+    const loadBreeds = async () => {
+      const breedsList = await fetchAllBreeds();
+      setBreeds(breedsList);
+    };
+
+    loadBreeds();
+  }, []);
 
   const onSubmit = async (data) => {
-    fetchImages(data.breed); 
+    fetchImages(data.breed); // Busca a raça selecionada
   };
 
   return (
@@ -19,13 +30,21 @@ const SearchForm = () => {
       
       <Grid item>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <TextField
-            label="Breed"
-            variant="outlined"
-            fullWidth
-            {...register('breed', { required: 'Breed is required' })}
-            error={!!errors.breed}
-            helperText={errors.breed ? errors.breed.message : ''}
+          <Autocomplete
+            options={breeds} // Opções para preenchimento automático
+            freeSolo
+            onInputChange={(event, value) => setValue('breed', value)} // Atualiza o valor no formulário
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Breed"
+                variant="outlined"
+                fullWidth
+                {...register('breed', { required: 'Breed is required' })}
+                error={!!errors.breed}
+                helperText={errors.breed ? errors.breed.message : ''}
+              />
+            )}
           />
           <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: '1rem' }}>
             Search

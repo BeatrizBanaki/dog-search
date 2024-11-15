@@ -9,7 +9,7 @@ export const DogProvider = ({ children }) => {
   const fetchImages = async (breed) => {
     setErrorMessage(''); 
     try {
-      const response = await fetch(`https://dog.ceo/api/breeds/image/random/3?breed=${breed}`);
+      const response = await fetch(`https://dog.ceo/api/breed/${breed}/images/random/15}`);
       const data = await response.json();
       if (data.status === 'success') {
         setImages(data.message);

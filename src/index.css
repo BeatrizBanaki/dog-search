@@ -1,13 +1,176 @@
+/* Estilo Geral */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Roboto', sans-serif;
+  background-color: #eef2f7;
+  color: #333;
+  margin-bottom: 50px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Header */
+.App-header {
+  background-color: #4caf50;
+  color: white;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(92, 87, 87, 0.1);
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+nav button {
+  text-transform: capitalize;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+/* Botões do Menu */
+nav button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Formulário */
+.search-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto;
+  max-width: 500px;
+}
+
+.search-form h6 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.search-form button {
+  margin-top: 1.5rem;
+  padding: 0.7rem;
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+/* Lista de Imagens */
+.dog-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.dog-list img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.dog-list img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dog-list .dog-card {
+  text-align: center;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Alertas */
+.alert {
+  background-color: #ffcccc;
+  color: #cc0000;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Footer */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  z-index: 1000;
+}
+
+
+/* Estilo Adicional para DogList */
+.dog-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 12px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.dog-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.dog-card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+}
+
+.dog-card p {
+  margin: 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Estilo para Header */
+.MuiAppBar-root {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.MuiTypography-root {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Botões */
+.MuiButton-containedSecondary {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Personalizando a Barra de Rolagem */
+::-webkit-scrollbar {
+  width: 8px; /* Largura da barra de rolagem */
+  height: 80%;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4caf50; /* Cor do "polegar" (parte que o usuário arrasta) */
+  border-radius: 10px; /* Deixa o polegar arredondado */
+  border: 2px solid #eef2f7; /* Cor da borda ao redor do polegar */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #45a049; /* Cor quando o polegar é hover */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Cor do fundo da barra de rolagem */
+  border-radius: 10px; /* Deixa a pista arredondada */
 }

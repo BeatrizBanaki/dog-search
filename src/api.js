@@ -19,3 +19,13 @@ export const fetchAllBreeds = async () => {
     return [];
   }
 };
+
+export const fetchRandomDogImage = async () => {
+    try {
+      const response = await axios.get('https://dog.ceo/api/breeds/image/random');
+      return response.data.message;
+    } catch (error) {
+      console.error("Error fetching random dog image:", error);
+      return null;
+    }
+  };

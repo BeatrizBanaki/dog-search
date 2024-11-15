@@ -4,6 +4,7 @@ import { Container, Typography, Button } from '@mui/material';
 import SearchForm from './components/SearchForm';
 import DogList from './components/DogList';
 import BreedsList from './components/BreedsList';
+import RandomDogImage from './components/RandomDogImage'; // Nova importação
 import { fetchDogs } from './api';
 
 const App = () => {
@@ -21,8 +22,11 @@ const App = () => {
         <Button component={Link} to="/" variant="contained" color="primary" style={{ marginRight: '1rem' }}>
           Home
         </Button>
-        <Button component={Link} to="/breeds" variant="contained" color="secondary">
+        <Button component={Link} to="/breeds" variant="contained" color="secondary" style={{ marginRight: '1rem' }}>
           All Breeds
+        </Button>
+        <Button component={Link} to="/random" variant="contained" color="success">
+          Random Dog Image
         </Button>
 
         <Routes>
@@ -36,6 +40,7 @@ const App = () => {
             }
           />
           <Route path="/breeds" element={<BreedsList />} />
+          <Route path="/random" element={<RandomDogImage />} />
         </Routes>
       </Container>
     </Router>

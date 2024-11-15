@@ -15,7 +15,7 @@ const BreedsList = () => {
   }, []);
 
   return (
-    <Container>
+    <Container style={{ marginTop: '1rem' }}>
       <Typography variant="h4" gutterBottom>Dog Breeds</Typography>
       <List>
         {breeds.map((breed, index) => (

@@ -18,14 +18,14 @@ const RandomDogImage = () => {
   }, []);
 
   return (
-    <Container style={{ textAlign: 'center', paddingTop: '2rem' }}>
+    <Container style={{ textAlign: 'center', paddingTop: '2rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Typography variant="h4" gutterBottom>Random Dog Image</Typography>
       {loading ? (
         <CircularProgress />
       ) : (
-        <img src={image} alt="Random Dog" style={{ maxWidth: '100%', height: 'auto', margin: '1rem 0' }} />
+        <img src={image} alt="Random Dog" style={{ maxWidth: '100%', height: 'auto', marginBottom: '1rem' }} />
       )}
-      <Button variant="contained" color="primary" onClick={loadRandomImage}>
+      <Button variant="contained" color="primary" onClick={loadRandomImage} style={{ marginTop: '1rem' }}>
         Show Another Image
       </Button>
     </Container>

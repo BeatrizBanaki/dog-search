@@ -10,7 +10,7 @@ const SearchForm = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', gap: '1rem' }}>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
       <TextField
         label="Enter dog breed"
         variant="outlined"

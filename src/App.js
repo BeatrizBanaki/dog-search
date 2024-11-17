@@ -36,7 +36,7 @@ const App = () => {
                   color: 'white',
                 }}
               >
-                Dog Breed Search
+                Dog Search
               </Typography>
             </Box>
 
@@ -147,7 +147,7 @@ const App = () => {
                 >
                   Beatriz Banaki
                 </a>
-                , e {' '}
+                {' '} e {' '}
                 <a
                   href="https://github.com/Rafael-Francisco21"
                   target="_blank"

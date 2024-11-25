@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, Navigate  } from 'react-router-dom';
 import { Container } from '@mui/material';
 import SearchForm from './components/SearchForm';
 import DogList from './components/DogList';
@@ -160,6 +160,7 @@ const App = () => {
             </Box>
           </footer>
       </Router>
+      <Router path="*" element={<Navigate to="/" />} />
     </DogProvider>
   );
 };

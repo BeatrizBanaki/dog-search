@@ -1,0 +1,38 @@
+CREATE DATABASE IF NOT EXISTS dogapp;
+USE dogapp;
+
+-- Tabela de usuários
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL -- Senha será criptografada
+);
+
+-- Tabela de raças de cães
+CREATE TABLE IF NOT EXISTS breeds (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE,
+    description TEXT
+);
+
+-- Tabela de imagens de cães
+CREATE TABLE IF NOT EXISTS dog_images (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    breed_id INT,
+    image_url VARCHAR(255) NOT NULL,
+    FOREIGN KEY (breed_id) REFERENCES breeds(id)
+);
+
+-- Inserir usuários
+INSERT INTO users (username, password) VALUES 
+('admin', '$2b$10$E3Z5z5z5z5z5z5z5z5z5u5z5z5z5z5z5z5z5z5z5z5z5z5z5z5z5u'); -- Senha: admin123
+
+-- Inserir raças de cães
+INSERT INTO breeds (name, description) VALUES 
+('Labrador', 'Friendly and outgoing.'),
+('Bulldog', 'Calm and courageous.');
+
+-- Inserir imagens de cães
+INSERT INTO dog_images (breed_id, image_url) VALUES 
+(1, 'https://example.com/labrador1.jpg'),
+(2, 'https://example.com/bulldog1.jpg');

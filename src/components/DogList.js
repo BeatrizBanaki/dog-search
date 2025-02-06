@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Card, CardMedia, Typography, Dialog, DialogContent } from '@mui/material';
+import { Grid, Card, CardMedia, Dialog, DialogContent } from '@mui/material';
 import { useDogContext } from '../context/DogContext';
 
 const DogList = () => {
@@ -25,7 +25,6 @@ const DogList = () => {
           <Grid item key={index}>
             <Card style={{ width: 200, cursor: 'pointer' }} onClick={() => handleOpenDialog(image)}>
               <CardMedia component="img" height="140" image={image} alt={`Dog #${index + 1}`} />
-              {/* <Typography variant="caption" align="center">Dog #{index + 1}</Typography> */}
             </Card>
           </Grid>
         ))}

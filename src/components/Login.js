@@ -1,11 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
-import api from '../services/api';
 import { Box, Button, TextField, Typography, Alert } from '@mui/material';
 
 const Login = () => {
-  const { setUser } = useContext(AuthContext);
+  const { login } = useContext(AuthContext); // Usando a função login do AuthContext
   const [credentials, setCredentials] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -16,16 +15,11 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError(''); // Limpar erro
 
     try {
-      const response = await api.post('/auth/login', credentials);
-
-      const { token } = response.data;
-      localStorage.setItem('token', token);
-      api.defaults.headers.Authorization = `Bearer ${token}`;
+      await login(credentials); // Chama o login do AuthContext
       navigate('/'); // Redireciona após login bem-sucedido
-      setUser(token);
     } catch (error) {
       setError('Usuário ou senha inválidos.');
     }

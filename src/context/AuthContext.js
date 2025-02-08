@@ -8,26 +8,26 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await api.post('/login', credentials);
+      const response = await api.post('/auth/login', credentials); // Endpoint de login
       setUser(response.data.user);
       localStorage.setItem('token', response.data.token);
+      api.defaults.headers.Authorization = `Bearer ${response.data.token}`; // Adiciona o token nos cabeçalhos
     } catch (error) {
-      console.error('Login failed', error);
+      console.error('Login falhou', error);
+      throw new Error('Login falhou');
     }
   };
 
   const logout = () => {
     setUser(null);
     localStorage.removeItem('token');
+    api.defaults.headers.Authorization = ''; // Remove o token dos cabeçalhos
   };
 
   useEffect(() => {
-    // Verifica se existe um token no localStorage
     const token = localStorage.getItem('token');
     if (token) {
       api.defaults.headers.Authorization = `Bearer ${token}`;
-      // Se o token estiver presente, você pode buscar os detalhes do usuário, se necessário
-      // Você pode também fazer uma chamada para verificar a validade do token, se necessário
       setUser({}); // Aqui você pode definir um objeto de usuário real, se desejar
     }
   }, []);

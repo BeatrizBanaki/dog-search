@@ -1,10 +1,16 @@
 import React, { useContext } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box, Container } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext'; // Importa o contexto
 
 const Home = () => {
-  const { user } = useContext(AuthContext); // Usa o contexto para pegar o estado do usuário
+  const { user, logout } = useContext(AuthContext); // Usa o contexto para pegar o estado do usuário
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/'); // Redireciona para a home após o logout
+  };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -77,21 +83,42 @@ const Home = () => {
               </Button>
             )}
 
-            <Button
-              component={Link}
-              to="/login"
-              sx={{
-                textTransform: 'none',
-                color: 'white',
-                borderRadius: 0,
-                padding: '0.5rem 1rem',
-                '&:hover': {
-                  backgroundColor: '#66BB6A',
-                },
-              }}
-            >
-              Login
-            </Button>
+            {/* Botão de Login só é exibido se o usuário não estiver logado */}
+            {!user && (
+              <Button
+                component={Link}
+                to="/login"
+                sx={{
+                  textTransform: 'none',
+                  color: 'white',
+                  borderRadius: 0,
+                  padding: '0.5rem 1rem',
+                  '&:hover': {
+                    backgroundColor: '#66BB6A',
+                  },
+                }}
+              >
+                Login
+              </Button>
+            )}
+
+            {/* Botão de Logout só aparece se o usuário estiver logado */}
+            {user && (
+              <Button
+                onClick={handleLogout}
+                sx={{
+                  textTransform: 'none',
+                  color: 'white',
+                  borderRadius: 0,
+                  padding: '0.5rem 1rem',
+                  '&:hover': {
+                    backgroundColor: '#66BB6A',
+                  },
+                }}
+              >
+                Logout
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>

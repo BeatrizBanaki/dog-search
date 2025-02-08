@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchAllBreeds } from '../api';
+import { fetchAllBreeds } from '../services/api';
 import { List, ListItem, ListItemText, Typography, Container } from '@mui/material';
 import { useDogContext } from '../context/DogContext';
 import { useNavigate } from 'react-router-dom';

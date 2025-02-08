@@ -1,23 +1,42 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
+import api from '../services/api';
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(localStorage.getItem('token') || '');
+  const [user, setUser] = useState(null);
 
-  const login = (newToken) => {
-    localStorage.setItem('token', newToken);
-    setToken(newToken);
+  const login = async (credentials) => {
+    try {
+      const response = await api.post('/login', credentials);
+      setUser(response.data.user);
+      localStorage.setItem('token', response.data.token);
+    } catch (error) {
+      console.error('Login failed', error);
+    }
   };
 
   const logout = () => {
+    setUser(null);
     localStorage.removeItem('token');
-    setToken('');
   };
 
+  useEffect(() => {
+    // Verifica se existe um token no localStorage
+    const token = localStorage.getItem('token');
+    if (token) {
+      api.defaults.headers.Authorization = `Bearer ${token}`;
+      // Se o token estiver presente, você pode buscar os detalhes do usuário, se necessário
+      // Você pode também fazer uma chamada para verificar a validade do token, se necessário
+      setUser({}); // Aqui você pode definir um objeto de usuário real, se desejar
+    }
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ token, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+export default AuthContext;

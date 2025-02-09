@@ -4,7 +4,8 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const breedRoutes = require('./routes/breedRoutes'); // Importe as rotas de raças
 const imageRoutes = require('./routes/imageRoutes');
-const logger = require('./logger'); // Importe o logger
+const logger = require('./utils/logger'); // Importe o logger
+const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());

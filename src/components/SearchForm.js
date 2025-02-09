@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, Grid, Typography, Autocomplete, TextField } from '@mui/material';
 import { useDogContext } from '../context/DogContext';
-import { fetchAllBreeds } from '../api';
+import { fetchAllBreeds } from '../services/api';
 
 const SearchForm = () => {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();

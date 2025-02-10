@@ -34,5 +34,5 @@ INSERT INTO breeds (name, description) VALUES
 
 -- Inserir imagens de cães
 INSERT INTO dog_images (breed_id, image_url) VALUES 
-(1, 'https://example.com/labrador1.jpg'),
-(2, 'https://example.com/bulldog1.jpg');
+(1, 'https:\/\/images.dog.ceo\/breeds\/labrador\/n02099712_7968.jpg'),
+(2, 'https:\/\/images.dog.ceo\/breeds\/bulldog-french\/n02108915_9530.jpg');

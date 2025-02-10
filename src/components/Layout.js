@@ -52,6 +52,11 @@ const Layout = ({ children }) => {
                 Dog Gallery
               </Button>
             )}
+            {user && (
+              <Button component={Link} to="/add-image"  sx={{ textTransform: 'none', color: 'white' }} >
+                Add Image
+              </Button>
+            )}
             {!user && (
               <Button component={Link} to="/login" sx={{ textTransform: 'none', color: 'white' }}>
                 Login

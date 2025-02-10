@@ -5,6 +5,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import Breeds from './components/Breeds';
 import AddBreed from './components/AddBreed';
+import AddImage from './components/AddImage';
 import BreedGallery from './components/BreedGallery';
 import Layout from './components/Layout'; // Importa o layout
 
@@ -33,6 +34,7 @@ const App = () => {
           />
           <Route path="/add-breed" element={<Layout><AddBreed /></Layout>} />
           <Route path="/gallery" element={<Layout><BreedGallery /></Layout>} />
+          <Route path="/add-image" element={<Layout><AddImage /></Layout>} />
 
 
           <Route path="*" element={<Navigate to="/" />} />

@@ -14,6 +14,7 @@
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
+    "concurrently": "^9.1.2",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
@@ -31,7 +32,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "api": "node back-end/server.js",
+    "dev": "concurrently \"npm start\" \"npm api\""
   },
   "eslintConfig": {
     "extends": [

@@ -1,35 +1,22 @@
 const express = require('express');
+const xss = require('xss');
 const DogImage = require('../models/DogImage');
 const authMiddleware = require('../middlewares/authMiddleware'); // Middleware de autenticação
 const router = express.Router();
 const Joi = require('joi');
+const logger = require('../utils/logger');
 
 // Buscar imagens de uma raça (GET /api/images/:breedId)
 router.get('/:breedId', authMiddleware, async (req, res) => {
-  const { breedId } = req.params;
+  let { breedId } = req.params;
+  breedId = xss(breedId);
 
   try {
     const images = await DogImage.findByBreedId(breedId);
     res.json(images);
   } catch (error) {
+    logger.error(`Erro ao buscar imagens: ${error.message}`);
     res.status(500).json({ message: 'Erro ao buscar imagens.' });
-  }
-});
-
-// Inserir uma nova imagem (POST /api/images)
-router.post('/', authMiddleware, async (req, res) => {
-  const { breedId, imageUrl } = req.body;
-
-  // Validação de campos
-  if (!breedId || !imageUrl) {
-    return res.status(400).json({ message: 'ID da raça e URL da imagem são obrigatórios.' });
-  }
-
-  try {
-    await DogImage.createImage(breedId, imageUrl);
-    res.status(201).json({ message: 'Imagem cadastrada com sucesso.' });
-  } catch (error) {
-    res.status(500).json({ message: 'Erro ao cadastrar imagem.' });
   }
 });
 
@@ -48,19 +35,23 @@ const imageSchema = Joi.object({
 
 // Inserir uma nova imagem (POST /api/images)
 router.post('/', authMiddleware, async (req, res) => {
-  const { error } = imageSchema.validate(req.body, { abortEarly: false });
+  let { breedId, imageUrl } = req.body;
 
+  // Sanitização dos dados
+  breedId = xss(breedId);
+  imageUrl = xss(imageUrl);
+
+  const { error } = imageSchema.validate({ breedId, imageUrl }, { abortEarly: false });
   if (error) {
     const messages = error.details.map((detail) => detail.message);
     return res.status(400).json({ messages });
   }
 
-  const { breedId, imageUrl } = req.body;
-
   try {
     await DogImage.createImage(breedId, imageUrl);
     res.status(201).json({ message: 'Imagem cadastrada com sucesso.' });
   } catch (error) {
+    logger.error(`Erro ao cadastrar imagem: ${error.message}`);
     res.status(500).json({ message: 'Erro ao cadastrar imagem.' });
   }
 });

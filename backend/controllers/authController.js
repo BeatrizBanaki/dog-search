@@ -1,10 +1,16 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const xss = require('xss');
 const User = require('../models/User');
 const logger = require('../utils/logger');
 
 const login = async (req, res) => {
-  const { username, password } = req.body;
+  let { username, password } = req.body;
+
+  // Sanitização dos dados de entrada
+  username = xss(username);
+  password = xss(password);
+
   const user = await User.findByUsername(username);
 
   if (!user || !(await bcrypt.compare(password, user.password))) {

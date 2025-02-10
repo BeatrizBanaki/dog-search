@@ -1,4 +1,5 @@
 const express = require('express');
+const xss = require('xss');
 const Breed = require('../models/Breed');
 const authMiddleware = require('../middlewares/authMiddleware'); // Middleware de autenticação
 const router = express.Router();
@@ -18,7 +19,11 @@ router.get('/', authMiddleware, async (req, res) => {
 
 // Inserir uma nova raça (POST /api/breeds)
 router.post('/', authMiddleware, async (req, res) => {
-  const { name, description } = req.body;
+  let { name, description } = req.body;
+
+  // Sanitização dos dados
+  name = xss(name);
+  description = xss(description);
 
   // Validação de campos
   if (!name || !description) {
@@ -37,8 +42,12 @@ router.post('/', authMiddleware, async (req, res) => {
 
 // Inserir uma imagem relacionada a uma raça (POST /api/breeds/:breedId/images)
 router.post('/:breedId/images', authMiddleware, async (req, res) => {
-  const { breedId } = req.params;
-  const { imageUrl } = req.body;
+  let { breedId } = req.params;
+  let { imageUrl } = req.body;
+
+  // Sanitização dos dados
+  breedId = xss(breedId);
+  imageUrl = xss(imageUrl);
 
   // Validação de campos
   if (!imageUrl) {
@@ -55,7 +64,4 @@ router.post('/:breedId/images', authMiddleware, async (req, res) => {
   }
 });
 
-
 module.exports = router;
-
-

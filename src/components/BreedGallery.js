@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Card, CardMedia, Dialog, DialogContent, Autocomplete, TextField, Button, Typography, Container } from '@mui/material';
+import { Grid, Card, CardMedia, Dialog, DialogContent, Autocomplete, TextField, Typography, Container } from '@mui/material';
 import api from '../services/api';
 
 const BreedGallery = () => {
@@ -31,9 +31,9 @@ const BreedGallery = () => {
     }
   };
 
-  const handleSearch = () => {
-    if (selectedBreed) {
-      fetchImages(selectedBreed.id);
+  const handleSearch = (newValue) => {
+    if (newValue) {
+      fetchImages(newValue.id);
     }
   };
 
@@ -58,22 +58,14 @@ const BreedGallery = () => {
           <Autocomplete
             options={breeds}
             getOptionLabel={(option) => option.name}
-            onChange={(event, newValue) => setSelectedBreed(newValue)}
+            onChange={(event, newValue) => {
+              setSelectedBreed(newValue);
+              handleSearch(newValue);
+            }}
             renderInput={(params) => (
               <TextField {...params} label="Selecione uma raça" variant="outlined" fullWidth />
             )}
           />
-        </Grid>
-        <Grid item xs={12} md={2}>
-          <Button 
-            variant="contained" 
-            color="primary" 
-            fullWidth 
-            onClick={handleSearch}
-            disabled={!selectedBreed}
-          >
-            Buscar
-          </Button>
         </Grid>
       </Grid>
 

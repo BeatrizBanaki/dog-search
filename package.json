@@ -33,8 +33,8 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "api": "node back-end/server.js",
-    "dev": "concurrently \"npm start\" \"npm api\""
+    "api": "node backend/server.js",
+    "dev": "concurrently \"npm start\" \"npm run api\""
   },
   "eslintConfig": {
     "extends": [
